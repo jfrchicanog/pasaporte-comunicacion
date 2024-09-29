@@ -1,0 +1,91 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1 class="text-center">Pasaporte de comunicación de {{pasaporte.nombre}} {{pasaporte.apellido1}} {{pasaporte
+                .apellido2}}</h1>
+            <div ngbAccordion>
+                <div ngbAccordionItem [collapsed]="false">
+                    <h2 ngbAccordionHeader>
+                        <button ngbAccordionButton>Información personal</button>
+                    </h2>
+                    <div ngbAccordionCollapse>
+                        <div ngbAccordionBody>
+                            <ng-template>
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <table class="table">
+                                                <tbody>
+                                                <tr>
+                                                    <th scope="row">Nombre</th>
+                                                    <td><input id="nombre" [(ngModel)]="pasaporte.nombre" class="form-control"></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Primer apellido</th>
+                                                    <td><input id="apellido1" [(ngModel)]="pasaporte.apellido1" class="form-control"></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Segundo apellido</th>
+                                                    <td><input id="apellido2" [(ngModel)]="pasaporte.apellido2" class="form-control"></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Fecha de nacimiento</th>
+                                                    <td>10</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Identificador</th>
+                                                    <td>{{pasaporte.id}}</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <img alt="Foto de Zacundo" src="assets/boy.webp" class="rounded img-fluid">
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </ng-template>
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngFor="let seccion of pasaporte.secciones" ngbAccordionItem [collapsed]="false">
+                    <h2 ngbAccordionHeader>
+                        <button ngbAccordionButton>
+                            {{ seccion.nombre }}
+                        </button>
+                    </h2>
+                    <div ngbAccordionCollapse>
+                        <div ngbAccordionBody>
+                            <ng-template>
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <label for="nombreSeccion">Nombre de sección</label>
+                                        </div>
+                                        <div class="col">
+                                            <input id="nombreSeccion" [(ngModel)]="seccion.nombre" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <ckeditor [editor]="Editor" [config]="config" [(ngModel)]="seccion.contenido"></ckeditor>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </div>
+                    </div>
+                </div>
+
+                <button (click)="aniadirSeccion()">Añadir sección</button>
+                <button (click)="cancelarOperacion()">Cancelar operación</button>
+                <button (click)="confirmarOperacion()">Confirmar operación</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
