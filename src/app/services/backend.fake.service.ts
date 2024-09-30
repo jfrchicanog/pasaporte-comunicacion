@@ -194,7 +194,8 @@ export class BackendFakeService {
   }
 
   postPasaporte(pasaporte: Pasaporte): Observable<Pasaporte> {
-    pasaporte.id = this.pasaportes.map(u => u.id).reduce((a, b) => Math.max(a, b),0) + 1;
+    pasaporte.id = this.pasaportes.map(u => u.id?u.id:0)
+        .reduce((a, b) => Math.max(a, b),0) + 1;
     this.pasaportes.push(pasaporte);
     this.guardarPasaportesEnLocalStorage();
     return of(pasaporte);

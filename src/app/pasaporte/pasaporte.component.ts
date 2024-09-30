@@ -3,11 +3,15 @@ import {ActivatedRoute, RouterLink} from '@angular/router';
 import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import {Pasaporte} from "../entities/pasaporte";
 import {BackendFakeService} from "../services/backend.fake.service";
+import {NgForOf, NgIf} from "@angular/common";
+import {ClassicEditor} from "ckeditor5";
+import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
+import {FormsModule} from "@angular/forms";
 
 @Component({
     selector: 'app-pasaporte',
     standalone: true,
-    imports: [RouterLink, NgbAccordionModule],
+    imports: [RouterLink, NgbAccordionModule, NgIf, CKEditorModule, FormsModule, NgForOf],
     templateUrl: './pasaporte.component.html',
     styleUrl: './pasaporte.component.css'
 })
@@ -24,7 +28,23 @@ export class PasaporteComponent {
                 }
             );
             console.log('ID pasaporte: '+ idPasaporte);
+
         });
     }
 
+    edad(pasaporte: Pasaporte): number {
+        const hoy = new Date();
+        const nacimiento = new Date(pasaporte.fechaNacimiento);
+        if (hoy < nacimiento) {
+            return 0;
+        }
+        let edad = hoy.getFullYear() - nacimiento.getFullYear();
+        if (hoy.getMonth() < nacimiento.getMonth() || (hoy.getMonth() == nacimiento.getMonth() && hoy.getDate() < nacimiento.getDate())) {
+            edad--;
+        }
+        console.log('Edad: ' + edad);
+        return edad;
+    }
+
+    protected readonly Editor = ClassicEditor;
 }

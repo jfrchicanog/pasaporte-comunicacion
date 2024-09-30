@@ -7,6 +7,8 @@ import {BackendFakeService} from "../services/backend.fake.service";
 import {EditorPasaporteService} from "../services/editor-pasaporte.service";
 import {Router} from "@angular/router";
 import {FRONTEND_URI} from "../config/config";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {CodigoQRComponent} from "../codigo-qr/codigo-qr.component";
 
 @Component({
     selector: 'listado-pasaporte',
@@ -24,7 +26,8 @@ export class ListadoPasaporteComponent {
     constructor(private backendService: BackendFakeService,
                 private usuarioService: UsuariosService,
                 private editorService: EditorPasaporteService,
-                private router: Router) {
+                private router: Router,
+                private modalService: NgbModal) {
         this.actualizarPasaportes();
     }
 
@@ -53,11 +56,14 @@ export class ListadoPasaporteComponent {
     }
 
     mostrarQR(pasaporte: Pasaporte): void {
-        // TODO
+        let ref = this.modalService.open(CodigoQRComponent);
+        const url=FRONTEND_URI+this.urlAbsolutaPasaporte(pasaporte);
+        console.log('URL: '+url);
+        ref.componentInstance.url=url;
     }
 
     verPasaporte(pasaporte: Pasaporte): void {
-        const url=this.urlAbsolutaPasaporte(pasaporte);
+        const url=FRONTEND_URI+this.urlAbsolutaPasaporte(pasaporte);
         console.log('URL: '+url);
         window.open(this.urlAbsolutaPasaporte(pasaporte), "_blank");
     }

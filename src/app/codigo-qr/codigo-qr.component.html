@@ -1,0 +1,18 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Código QR</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cierre usuario')"></button>
+</div>
+<div class="modal-body">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-auto">
+                <qr-code [value]="url" size="300" errorCorrectionLevel="M"></qr-code>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="descargarQR()">Descargar</button>
+    <button type="button" class="btn btn-outline-dark" >Imprimir</button>
+</div>
+

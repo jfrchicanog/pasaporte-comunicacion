@@ -30,7 +30,7 @@
                                                 </tr>
                                                 <tr>
                                                     <th scope="row">Fecha de nacimiento</th>
-                                                    <td>10</td>
+                                                    <td><input type="date" [(ngModel)]="pasaporte.fechaNacimiento"></td>
                                                 </tr>
                                                 <tr>
                                                     <th scope="row">Identificador</th>
@@ -40,7 +40,7 @@
                                             </table>
                                         </div>
                                         <div class="col-md-6">
-                                            <img alt="Foto de Zacundo" src="assets/boy.webp" class="rounded img-fluid">
+                                            <img alt="Foto de {{pasaporte.nombre}}" src="assets/boy.webp" class="rounded img-fluid">
                                         </div>
                                     </div>
 

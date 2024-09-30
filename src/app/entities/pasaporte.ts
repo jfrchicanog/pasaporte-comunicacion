@@ -1,21 +1,22 @@
 export interface Seccion {
-    id: number,
+    id?: number,
     nombre: string,
     contenido: string
 }
 
 export interface Pasaporte {
-    id: number,
-    nombre: string,
-    apellido1: string,
-    apellido2: string,
-    foto: Blob,
-    fechaNacimiento: Date,
-    secciones: Seccion[]
+    id?: number;
+    nombre: string;
+    apellido1: string;
+    apellido2: string;
+    foto: Blob;
+    fechaNacimiento: Date;
+    secciones: Seccion[];
 }
 
+
 export class PasaporteImpl implements Pasaporte {
-    id: number;
+    id?: number;
     nombre: string;
     apellido1: string;
     apellido2: string;
@@ -24,7 +25,6 @@ export class PasaporteImpl implements Pasaporte {
     secciones: Seccion[];
 
     constructor() {
-        this.id = 0;
         this.nombre = '';
         this.apellido1 = '';
         this.apellido2 = '';
@@ -35,12 +35,11 @@ export class PasaporteImpl implements Pasaporte {
 }
 
 export class SeccionImpl implements Seccion {
-    id: number;
+    id?: number;
     nombre: string;
     contenido: string;
 
     constructor() {
-        this.id = 0;
         this.nombre = '';
         this.contenido = '';
     }
