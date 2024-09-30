@@ -4,6 +4,7 @@ import { Usuario } from "../entities/usuario";
 import { HttpClient } from "@angular/common/http";
 import { BACKEND_URI } from "../config/config";
 import { JwtResponse } from "../entities/login";
+import {Pasaporte} from "../entities/pasaporte";
 
 // Este servicio usa el backend real
 
@@ -45,5 +46,25 @@ export class BackendService {
 
   resetPassword(token: string, password: string): Observable<void> {
     return this.httpClient.post<void>(BACKEND_URI + '/passwordreset', {token: token, password: password});
+  }
+
+  getPasaportes(): Observable<Pasaporte[]> {
+    return this.httpClient.get<Pasaporte[]>(BACKEND_URI + '/pasaporte');
+  }
+
+  getPasaporte(id: number): Observable<Pasaporte> {
+    return this.httpClient.get<Pasaporte>(BACKEND_URI + '/pasaporte/' + id);
+  }
+
+  postPasaporte(pasaporte: Pasaporte): Observable<Pasaporte> {
+    return this.httpClient.post<Pasaporte>(BACKEND_URI + '/pasaporte', pasaporte);
+  }
+
+  putPasaporte(pasaporte: Pasaporte): Observable<Pasaporte> {
+    return this.httpClient.put<Pasaporte>(BACKEND_URI + '/pasaporte/' + pasaporte.id!, pasaporte);
+  }
+
+  deletePasaporte(id: number): Observable<void> {
+    return this.httpClient.delete<void>(BACKEND_URI + '/pasaporte/' + id);
   }
 }

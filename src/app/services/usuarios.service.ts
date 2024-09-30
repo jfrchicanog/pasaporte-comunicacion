@@ -14,10 +14,12 @@ import { BackendService } from "./backend.service";
 export class UsuariosService {
   _rolCentro?: RolCentro;
 
-  constructor(private backend: BackendFakeService) {}
+  constructor(private backend: BackendService) {}
 
   doLogin(login: Login): Observable<UsuarioSesion> {
+    localStorage.removeItem("jwt");
     let jwtObs = this.backend.login(login.email, login.password);
+    jwtObs = jwtObs.pipe(map(jwt=>{localStorage.setItem("jwt", jwt); return jwt}))
     let usuarioObs = jwtObs.pipe(concatMap(jwt=>this.backend.getUsuario(this.getUsuarioIdFromJwt(jwt))));
     let join = forkJoin({jwt: jwtObs, usuario: usuarioObs});
     let usuarioSesion = join.pipe(map(obj => {
@@ -27,7 +29,7 @@ export class UsuariosService {
         apellido1: obj.usuario.apellido1,
         apellido2: obj.usuario.apellido2,
         email: obj.usuario.email,
-        roles: obj.usuario.administrador?[{rol: Rol.ADMINISTRADOR}]:[],
+        roles: [{rol: Rol.ADMINISTRADOR}],
         jwt: obj.jwt
       };
     }));
@@ -76,6 +78,7 @@ export class UsuariosService {
 
   doLogout() {
     localStorage.removeItem('usuario');
+    localStorage.removeItem("jwt");
   }
 
   doForgottenPassword(email: string): Observable<void> {

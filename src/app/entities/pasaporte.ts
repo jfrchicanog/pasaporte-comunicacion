@@ -9,7 +9,7 @@ export interface Pasaporte {
     nombre: string;
     apellido1: string;
     apellido2: string;
-    foto: Blob;
+    foto?: Blob;
     fechaNacimiento: Date;
     secciones: Seccion[];
 }
@@ -20,7 +20,7 @@ export class PasaporteImpl implements Pasaporte {
     nombre: string;
     apellido1: string;
     apellido2: string;
-    foto: Blob;
+    foto?: Blob;
     fechaNacimiento: Date;
     secciones: Seccion[];
 
@@ -28,7 +28,6 @@ export class PasaporteImpl implements Pasaporte {
         this.nombre = '';
         this.apellido1 = '';
         this.apellido2 = '';
-        this.foto = new Blob();
         this.fechaNacimiento = new Date();
         this.secciones = [];
     }
