@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import {Pasaporte} from "../entities/pasaporte";
-import {BackendFakeService} from "../services/backend.fake.service";
 import {NgForOf, NgIf} from "@angular/common";
 import {ClassicEditor} from "ckeditor5";
 import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
 import {FormsModule} from "@angular/forms";
+import {PasaporteService} from "../services/pasaporte.service";
 
 @Component({
     selector: 'app-pasaporte',
@@ -18,12 +18,12 @@ import {FormsModule} from "@angular/forms";
 export class PasaporteComponent {
     pasaporte?: Pasaporte;
 
-    constructor(private route: ActivatedRoute, private backendService: BackendFakeService) {}
+    constructor(private route: ActivatedRoute, private pasaporteService: PasaporteService) {}
 
     ngOnInit() {
         this.route.queryParams.subscribe(params => {
             const idPasaporte = params['id'] as number;
-            this.backendService.getPasaporte(idPasaporte).subscribe(pasaporte => {
+            this.pasaporteService.obtenerPasaporte(idPasaporte).subscribe(pasaporte => {
                 this.pasaporte=pasaporte;
                 }
             );

@@ -3,12 +3,12 @@ import {NgForOf, NgIf} from "@angular/common";
 import {Pasaporte} from "../entities/pasaporte";
 import {UsuariosService} from "../services/usuarios.service";
 import {Rol} from "../entities/login";
-import {BackendFakeService} from "../services/backend.fake.service";
 import {EditorPasaporteService} from "../services/editor-pasaporte.service";
 import {Router} from "@angular/router";
 import {FRONTEND_URI} from "../config/config";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {CodigoQRComponent} from "../codigo-qr/codigo-qr.component";
+import {PasaporteService} from "../services/pasaporte.service";
 
 @Component({
     selector: 'listado-pasaporte',
@@ -23,7 +23,7 @@ import {CodigoQRComponent} from "../codigo-qr/codigo-qr.component";
 export class ListadoPasaporteComponent {
     pasaportes: Pasaporte[] = [];
 
-    constructor(private backendService: BackendFakeService,
+    constructor(private pasaporteService: PasaporteService,
                 private usuarioService: UsuariosService,
                 private editorService: EditorPasaporteService,
                 private router: Router,
@@ -40,7 +40,7 @@ export class ListadoPasaporteComponent {
     }
 
     actualizarPasaportes() {
-        this.backendService.getPasaportes().subscribe(pasaportes => {
+        this.pasaporteService.obtenerPasaportes().subscribe(pasaportes => {
             this.pasaportes = pasaportes;
         });
     }
@@ -69,7 +69,7 @@ export class ListadoPasaporteComponent {
     }
 
     eliminarPasaporte(id: number): void {
-        this.backendService.deletePasaporte(id).subscribe(() => {
+        this.pasaporteService.eliminarPasaporte(id).subscribe(() => {
             this.actualizarPasaportes();
         });
     }

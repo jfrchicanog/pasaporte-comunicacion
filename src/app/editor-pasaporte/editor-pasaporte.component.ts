@@ -25,9 +25,9 @@ import {
 
 import {Pasaporte, PasaporteImpl, SeccionImpl, Seccion} from "../entities/pasaporte";
 import {NgForOf} from "@angular/common";
-import {BackendFakeService} from "../services/backend.fake.service";
 import { EditorPasaporteService } from '../services/editor-pasaporte.service';
 import {Router} from "@angular/router";
+import {PasaporteService} from "../services/pasaporte.service";
 
 @Component( {
     selector: 'editor-pasaporte',
@@ -66,7 +66,7 @@ export class EditorPasaportecomponent {
 
     public pasaporte: Pasaporte = new PasaporteImpl();
 
-    constructor(private backendService: BackendFakeService,
+    constructor(private pasaporteService: PasaporteService,
                 private editorService: EditorPasaporteService,
                 private router: Router) {
         this.pasaporte = editorService.pasaporte;
@@ -74,7 +74,6 @@ export class EditorPasaportecomponent {
 
     public aniadirSeccion(): void {
         let seccion: Seccion = new SeccionImpl();
-        seccion.id=this.pasaporte.secciones.length+1;
         seccion.nombre='Nueva sección';
         seccion.contenido='<p>Contenido de nueva sección</p>';
         this.pasaporte.secciones.push(seccion);
@@ -86,11 +85,11 @@ export class EditorPasaportecomponent {
 
     public confirmarOperacion(): void {
         if (this.editorService.modo == 'Editar') {
-            this.backendService.putPasaporte(this.pasaporte).subscribe(() => {
+            this.pasaporteService.modificarPasaporte(this.pasaporte).subscribe(() => {
                 this.router.navigate(['/pasaportes']);
             });
         } else {
-            this.backendService.postPasaporte(this.pasaporte).subscribe(() => {
+            this.pasaporteService.aniadirPasaporte(this.pasaporte).subscribe(() => {
                 this.router.navigate(['/pasaportes']);
             });
         }
