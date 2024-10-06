@@ -30,6 +30,7 @@
               "src/styles.css"
             ],
             "scripts": [],
+            "baseHref": "/pasaporte/"
           },
           "configurations": {
             "production": {
@@ -37,12 +38,12 @@
                 {
                   "type": "initial",
                   "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumError": "2mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "200kb",
+                  "maximumError": "400kb"
                 }
               ],
               "outputHashing": "all"
