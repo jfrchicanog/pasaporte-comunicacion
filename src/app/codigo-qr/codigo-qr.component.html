@@ -6,13 +6,19 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-auto">
-                <qr-code [value]="url" size="300" errorCorrectionLevel="M"></qr-code>
+                <canvas #qrCodeImage
+                        [qrCode]="url"
+                        qrCodeErrorCorrectionLevel="H"
+                        [width]="400"
+                        [height]="400"
+                ></canvas>
+                <iframe #printFrame style="display:none;"></iframe>
             </div>
         </div>
     </div>
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-outline-dark" (click)="descargarQR()">Descargar</button>
-    <button type="button" class="btn btn-outline-dark" >Imprimir</button>
+    <button type="button" class="btn btn-outline-dark" (click)="imprimirQR()">Imprimir</button>
 </div>
 
