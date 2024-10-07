@@ -65,7 +65,7 @@ export class ListadoPasaporteComponent {
     verPasaporte(pasaporte: Pasaporte): void {
         const url=FRONTEND_URI+this.urlAbsolutaPasaporte(pasaporte);
         console.log('URL: '+url);
-        window.open(this.urlAbsolutaPasaporte(pasaporte), "_blank");
+        window.open(url, "_blank");
     }
 
     eliminarPasaporte(id: number): void {

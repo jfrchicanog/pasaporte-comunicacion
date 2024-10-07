@@ -9,7 +9,7 @@ export interface Pasaporte {
     nombre: string;
     apellido1: string;
     apellido2: string;
-    foto?: Blob;
+    foto?: string;
     fechaNacimiento: Date;
     secciones: Seccion[];
 }
@@ -20,7 +20,7 @@ export class PasaporteImpl implements Pasaporte {
     nombre: string;
     apellido1: string;
     apellido2: string;
-    foto?: Blob;
+    foto?: string;
     fechaNacimiento: Date;
     secciones: Seccion[];
 

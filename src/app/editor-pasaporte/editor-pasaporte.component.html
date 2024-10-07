@@ -3,6 +3,8 @@
         <div class="col">
             <h1 class="text-center">Pasaporte de comunicación de {{pasaporte.nombre}} {{pasaporte.apellido1}} {{pasaporte
                 .apellido2}}</h1>
+            <button class="btn btn-danger m-1" (click)="cancelarOperacion()"><i class="bi bi-x-lg"></i> Cancelar {{operacion}}</button>
+            <button class="btn btn-success m-1" (click)="confirmarOperacion()"><i class="bi bi-check-lg"></i> Confirmar {{operacion}}</button>
             <div ngbAccordion>
                 <div ngbAccordionItem [collapsed]="false">
                     <h2 ngbAccordionHeader>
@@ -39,8 +41,10 @@
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <div class="col-md-6">
-                                            <img alt="Foto de {{pasaporte.nombre}}" src="assets/boy.webp" class="rounded img-fluid">
+                                        <div class="col-md-6" appDnd (fileDropped)="ficherosArrastrados($event)">
+                                            <img alt="Foto de {{pasaporte.nombre}}" [src]="foto" class="rounded img-fluid">
+                                            <p>Arrastre una imagen arriba para asociar una foto al pasaporte.</p>
+                                            <!--<input class="form-control" type="file" id="photo" (change)="ficherosBuscados($event)" accept="image/*">-->
                                         </div>
                                     </div>
 
@@ -79,9 +83,9 @@
                     </div>
                 </div>
 
-                <button (click)="aniadirSeccion()">Añadir sección</button>
-                <button (click)="cancelarOperacion()">Cancelar operación</button>
-                <button (click)="confirmarOperacion()">Confirmar operación</button>
+                <button class="btn btn-primary m-1" (click)="aniadirSeccion()"><i class="bi bi-plus-lg"></i> Añadir sección</button>
+                <button class="btn btn-danger m-1" (click)="cancelarOperacion()"><i class="bi bi-x-lg"></i> Cancelar {{operacion}}</button>
+                <button class="btn btn-success m-1" (click)="confirmarOperacion()"><i class="bi bi-check-lg"></i> Confirmar {{operacion}}</button>
 
             </div>
         </div>

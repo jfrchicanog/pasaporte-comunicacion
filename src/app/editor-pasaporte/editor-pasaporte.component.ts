@@ -1,4 +1,4 @@
-import {Component, ViewEncapsulation} from '@angular/core';
+import {Component, ViewChild, ViewEncapsulation} from '@angular/core';
 import {CKEditorModule} from '@ckeditor/ckeditor5-angular';
 import { FormsModule } from '@angular/forms';
 import {
@@ -28,13 +28,14 @@ import {NgForOf} from "@angular/common";
 import { EditorPasaporteService } from '../services/editor-pasaporte.service';
 import {Router} from "@angular/router";
 import {PasaporteService} from "../services/pasaporte.service";
+import {DndDirective} from "../directives/dnd.directive";
 
 @Component( {
     selector: 'editor-pasaporte',
     templateUrl: './editor-pasaporte.component.html',
     styleUrls: [ './editor-pasaporte.component.css', '../../../node_modules/ckeditor5/dist/ckeditor5.css' ],
     imports: [CKEditorModule, NgbAccordionBody, NgbAccordionButton, NgbAccordionCollapse, NgbAccordionDirective,
-        NgbAccordionHeader, NgbAccordionItem, NgForOf, FormsModule],
+        NgbAccordionHeader, NgbAccordionItem, NgForOf, FormsModule, DndDirective],
     encapsulation: ViewEncapsulation.None,
     standalone: true
 } )
@@ -65,6 +66,7 @@ export class EditorPasaportecomponent {
     }
 
     public pasaporte: Pasaporte = new PasaporteImpl();
+    private readonly fotoDefecto = 'assets/boy.webp';
 
     constructor(private pasaporteService: PasaporteService,
                 private editorService: EditorPasaporteService,
@@ -83,6 +85,14 @@ export class EditorPasaportecomponent {
         this.router.navigate(['/pasaportes']);
     }
 
+    public get operacion (): string {
+        if (this.editorService.modo == 'Editar') {
+            return "edición";
+        } else {
+            return "inserción"
+        }
+    }
+
     public confirmarOperacion(): void {
         if (this.editorService.modo == 'Editar') {
             this.pasaporteService.modificarPasaporte(this.pasaporte).subscribe(() => {
@@ -94,5 +104,41 @@ export class EditorPasaportecomponent {
             });
         }
     }
+
+    public ficherosArrastrados(ficheros: FileList): void  {
+        const fichero = ficheros.item(0);
+        if (fichero) {
+            this.ponerFicheroComoImagen(fichero);
+        }
+    }
+
+    public ficherosBuscados(event: Event): void {
+        const input = event.target as HTMLInputElement;
+        if (input.files && input.files[0]) {
+            this.ponerFicheroComoImagen(input.files[0]);
+        }
+    }
+
+    private ponerFicheroComoImagen(selectedFile: File): void {
+            // Leer archivo y convertir a Base64
+            const reader = new FileReader();
+            reader.onload = () => {
+                this.foto = reader.result as string; // La imagen en formato base64
+            };
+            reader.readAsDataURL(selectedFile);
+    }
+
+
+    get foto (): string {
+        if (this.pasaporte.foto) {
+            return this.pasaporte.foto;
+        } else {
+            return this.fotoDefecto;
+        }
+    }
+    set foto (str: string) {
+        this.pasaporte.foto = str;
+    }
+
 
 }

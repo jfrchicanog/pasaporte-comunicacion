@@ -1,1 +1,5 @@
 @import 'ckeditor5/ckeditor5.css';
+
+.fileover {
+    border: 1px red solid
+}
