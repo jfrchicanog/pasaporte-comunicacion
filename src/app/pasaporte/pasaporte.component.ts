@@ -17,6 +17,7 @@ import {PasaporteService} from "../services/pasaporte.service";
 })
 export class PasaporteComponent {
     pasaporte?: Pasaporte;
+    private readonly fotoDefecto = 'assets/boy.webp';
 
     constructor(private route: ActivatedRoute, private pasaporteService: PasaporteService) {}
 
@@ -46,5 +47,11 @@ export class PasaporteComponent {
         return edad;
     }
 
-    protected readonly Editor = ClassicEditor;
+    get foto (): string {
+        if (this.pasaporte && this.pasaporte.foto) {
+            return this.pasaporte.foto;
+        } else {
+            return this.fotoDefecto;
+        }
+    }
 }
