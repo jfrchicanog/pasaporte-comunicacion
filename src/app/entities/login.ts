@@ -9,15 +9,10 @@ export interface JwtResponse {
 }
 
 export enum Rol {
-  ADMINISTRADOR = 'administrador',
-  EDITOR = 'editor'
+  ADMINISTRADOR = 'ADMINISTRADOR',
+  EDITOR = 'EDITOR'
 }
 
-export interface RolCentro {
-  rol: Rol;
-  centro?: number;
-  nombreCentro?: string;
-}
 
 export interface UsuarioSesion {
   id: number;
@@ -26,7 +21,7 @@ export interface UsuarioSesion {
   apellido2: string;
   email: string;
   jwt: string;
-  roles: RolCentro[];
+  roles: Rol[];
 }
 
 export type MapaCentros = Map<number, string>;

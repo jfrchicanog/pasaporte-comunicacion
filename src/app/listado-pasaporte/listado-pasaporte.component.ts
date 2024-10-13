@@ -35,8 +35,8 @@ export class ListadoPasaporteComponent {
         this.actualizarPasaportes();
     }
 
-    isAdministrador(): boolean {
-        return this.usuarioService.getUsuarioSesion()?.roles.find(rol => rol.rol == Rol.ADMINISTRADOR) != undefined;
+    isEditor(): boolean {
+        return this.usuarioService.isEditor();
     }
 
     actualizarPasaportes() {

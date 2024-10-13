@@ -25,10 +25,15 @@
       placeholder="(deje en blanco para mantener o generar)" type="password">
 
     <div class="form-check">
-      <input class="form-check-input" id="administrador" name="administrador" [(ngModel)]="usuario.administrador"
+      <input class="form-check-input" id="administrador" name="administrador" [(ngModel)]="admin"
         type="checkbox">
       <label class="form-check-label" for="administrador">Administrador</label>
     </div>
+      <div class="form-check">
+          <input class="form-check-input" id="editor" name="editor" [(ngModel)]="editor"
+                 type="checkbox">
+          <label class="form-check-label" for="editor">Editor</label>
+      </div>
   </form>
 </div>
 <div class="modal-footer">

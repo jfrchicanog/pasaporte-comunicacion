@@ -3,6 +3,7 @@ import { Usuario, UsuarioImpl } from '../entities/usuario';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import {Rol} from "../entities/login";
 
 @Component({
   selector: 'app-formulario-usuario',
@@ -17,6 +18,7 @@ export class FormularioUsuarioComponent {
   rpassword: string = '';
   error: string = '';
 
+
   constructor(public modal: NgbActiveModal) { }
 
   get usuario () {
@@ -27,6 +29,37 @@ export class FormularioUsuarioComponent {
     this._usuario = u;
     this._usuario.password='';
   }
+
+  get admin(): boolean {
+    return this.getRole(Rol.ADMINISTRADOR)
+  }
+
+  set admin(val: boolean) {
+    this.setRole(Rol.ADMINISTRADOR, val);
+  }
+
+  get editor(): boolean {
+    return this.getRole(Rol.EDITOR)
+  }
+
+  set editor(val: boolean) {
+    this.setRole(Rol.EDITOR, val);
+  }
+
+  private getRole(rol: Rol): boolean {
+    return this.usuario.roles.includes(rol);
+  }
+
+  private setRole(rol: Rol, val: boolean): void {
+    if (this.getRole(rol) != val) {
+      if (val) {
+        this.usuario.roles.push(rol);
+      } else {
+        this.usuario.roles = this.usuario.roles.filter(r => r!=rol);
+      }
+    }
+  }
+
 
   guardarUsuario(): void {
     if (this._usuario.password != this.rpassword) {

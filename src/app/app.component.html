@@ -1,27 +1,35 @@
-<div class="container">
-  <div class="row">
-    <h3 class="col-6">Pasaporte de comunicación</h3>
-    <div class="col" *ngIf="usuarioSesion">
-      <p class="align-middle m-1">Bienvenido, {{usuarioSesion.nombre}}</p>
+<header>
+    <div class="container">
+        <h1>Pasaporte Educativo y Clínico de Comunicación (PECCO)</h1>
+        <p>Facilitando la comunicación entre cuidadores y personas con necesidades especiales.</p>
     </div>
-    <div class="col-2" >
-      <select *ngIf="usuarioSesion" class="form-select" [(ngModel)]="rolIndex">
-        <option *ngFor="let rol of usuarioSesion.roles, let i = index" [value]="i" >{{rol.rol | titlecase}} {{rol.nombreCentro?'en '+rol.nombreCentro:''}}</option>
-      </select>
+</header>
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#"><i class="bi bi-passport-fill m-1"></i></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+            </li>
+            <li class="nav-item" *ngIf="isAdministrador">
+                <a class="nav-link" routerLink="/usuarios" routerLinkActive="active">Usuarios</a>
+            </li>
+            <li class="nav-item" *ngIf="isEditor">
+                <a class="nav-link" routerLink="/pasaportes" routerLinkActive="active">Pasaportes</a>
+            </li>
+        </ul>
     </div>
     <div class="col-2 m-1">
-      <a *ngIf="!usuarioSesion"  [routerLink]="'/login'"><button class="btn btn-primary">Iniciar sesión</button></a>
-      <button *ngIf="usuarioSesion"  class="btn btn-primary" (click)="logout()">Cerrar sesión</button>
+        <a *ngIf="!usuarioSesion"  [routerLink]="'/login'"><button class="btn btn-primary">Iniciar sesión</button></a>
+        <button *ngIf="usuarioSesion"  class="btn btn-primary" (click)="logout()">Cerrar sesión</button>
     </div>
-  </div>
-</div>
-
-<nav class="navbar navbar-expand navbar-light bg-light">
-  <div class="collapse navbar-collapse">
-    <div class="navbar-nav">
-      <a class="nav-item nav-link" [routerLink]="'/'">Home</a>
-    </div>
-  </div>
 </nav>
+
 
 <router-outlet />

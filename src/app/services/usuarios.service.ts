@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Login, UsuarioSesion, Rol, RolCentro } from "../entities/login";
+import { Login, UsuarioSesion, Rol} from "../entities/login";
 import { Observable, of, forkJoin, concatMap, lastValueFrom } from "rxjs";
 import {map} from 'rxjs/operators';
 import * as jose from 'jose';
@@ -12,8 +12,6 @@ import { BackendService } from "./backend.service";
   providedIn: 'root'
 })
 export class UsuariosService {
-  _rolCentro?: RolCentro;
-
   constructor(private backend: BackendService) {}
 
   doLogin(login: Login): Observable<UsuarioSesion> {
@@ -29,27 +27,16 @@ export class UsuariosService {
         apellido1: obj.usuario.apellido1,
         apellido2: obj.usuario.apellido2,
         email: obj.usuario.email,
-        roles: [{rol: Rol.ADMINISTRADOR}],
+        roles: obj.usuario.roles,
         jwt: obj.jwt
       };
     }));
     return usuarioSesion
-    .pipe(concatMap(usuarioSesion=>this.completarConRoles(usuarioSesion)))
     .pipe(map(usuarioSesion=>{
       localStorage.setItem('usuario', JSON.stringify(usuarioSesion));
-      if (usuarioSesion.roles.length > 0) {
-        this.rolCentro = usuarioSesion.roles[0];
-      } else {
-        this.rolCentro = undefined;
-      }
       return usuarioSesion;
     }));
 
-  }
-
-  private completarConRoles(usuarioSesion: UsuarioSesion): Observable<UsuarioSesion> {
-    // TODO: acceder a lo sotros servicios (o simular) para completar con los roles necesarios
-    return of(usuarioSesion);
   }
 
   private getUsuarioIdFromJwt(jwt: string): number {
@@ -63,17 +50,23 @@ export class UsuariosService {
     }
   }
 
-  get rolCentro(): RolCentro | undefined {
-    return this._rolCentro;
-  }
-
-  set rolCentro(r: RolCentro | undefined) {
-    this._rolCentro = r;
-  }
-
   getUsuarioSesion(): UsuarioSesion | undefined {
     const usuario = localStorage.getItem('usuario');
     return usuario ? JSON.parse(usuario) : undefined;
+  }
+
+  isEditor(): boolean {
+    if (this.getUsuarioSesion()) {
+      return this.getUsuarioSesion()!.roles.includes(Rol.EDITOR);
+    }
+    return false;
+  }
+
+  isAdministrador(): boolean {
+    if (this.getUsuarioSesion()) {
+      return this.getUsuarioSesion()!.roles.includes(Rol.ADMINISTRADOR);
+    }
+    return false;
   }
 
   doLogout() {

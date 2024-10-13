@@ -1,0 +1,12 @@
+header {
+    background: #0088cc;
+    color: white;
+    padding: 2rem 0;
+    text-align: center;
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+}

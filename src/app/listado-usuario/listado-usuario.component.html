@@ -8,7 +8,7 @@
             <th>Nombre</th>
             <th>Apellidos</th>
             <th>Email</th>
-            <th>Administrador</th>
+            <th>Roles</th>
             <th></th>
           </tr>
         </thead>
@@ -17,7 +17,7 @@
             <td>{{usuario.nombre}}</td>
             <td>{{usuario.apellido1}} {{usuario.apellido2}}</td>
             <td>{{usuario.email}}</td>
-            <td>{{usuario.administrador?'Sí':'No'}}</td>
+            <td>{{usuario.roles}}</td>
             <td><button class="btn btn-sm btn-outline-primary m-1" (click)="editarUsuario(usuario)"><i class="bi bi-pencil-fill"></i></button>
               <button (click)="eliminarUsuario(usuario.id)" class="btn btn-sm btn-outline-danger m-1"><i class="bi bi-trash-fill"></i></button></td>
           </tr>

@@ -21,13 +21,8 @@ export class ListadoUsuarioComponent {
     this.actualizarUsuarios();
    }
 
-  private get rol() {
-    return this.usuariosService.rolCentro;
-  }
-
   isAdministrador(): boolean {
-    console.log("Pregunta admin: "+this.rol);
-    return this.rol?.rol == Rol.ADMINISTRADOR;
+    return this.usuariosService.isAdministrador();
   }
 
   ngOnInit(): void {

@@ -1,3 +1,5 @@
+import {Rol} from "./login";
+
 export interface Usuario {
   id: number;
   nombre: string;
@@ -5,7 +7,7 @@ export interface Usuario {
   apellido2: string;
   email: string;
   password: string;
-  administrador: boolean;
+  roles: Rol[];
 }
 
 export class UsuarioImpl implements Usuario {
@@ -15,7 +17,7 @@ export class UsuarioImpl implements Usuario {
   apellido2: string;
   email: string;
   password: string;
-  administrador: boolean;
+  roles: Rol[];
 
   constructor() {
     this.id = 0;
@@ -24,6 +26,6 @@ export class UsuarioImpl implements Usuario {
     this.apellido2 = '';
     this.email = '';
     this.password = '';
-    this.administrador = false;
+    this.roles = [];
   }
 }

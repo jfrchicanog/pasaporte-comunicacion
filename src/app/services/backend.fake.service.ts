@@ -6,6 +6,7 @@ import { from } from "rxjs";
 import * as jose from 'jose';
 import { FRONTEND_URI } from "../config/config";
 import {Pasaporte} from "../entities/pasaporte";
+import {Rol} from "../entities/login";
 
 // Este servicio imita al backend pero utiliza localStorage para almacenar los datos
 
@@ -16,7 +17,7 @@ const usuariosC: Usuario [] = [
     apellido1: 'Admin',
     apellido2: 'Admin',
     email: 'admin@uma.es',
-    administrador: true,
+    roles: [Rol.ADMINISTRADOR],
     password: 'admin'
   },
   {
@@ -25,7 +26,7 @@ const usuariosC: Usuario [] = [
     apellido1: 'García',
     apellido2: 'Ramos',
     email: 'antonio@uma.es',
-    administrador: false,
+    roles: [Rol.EDITOR],
     password: '5678'
   },
 ];
